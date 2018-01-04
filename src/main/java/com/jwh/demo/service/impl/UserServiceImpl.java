@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @Cacheable(value = "user",key = "#userName.concat(':').concat(#userPass)")//组合键
+    @Cacheable(value = "oneHourTerm",key = "#userName.concat(':').concat(#userPass)")//组合键
     public User findUserByNameAndPass(String userName, String userPass) {
         User user = new User();
         user.setUserName(userName);
@@ -33,17 +33,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    @CachePut(value = "user",key = "#user.id")//缓存名user，既能保证方法被调用，结果每次都会被缓存，即覆盖
+    @CachePut(value = "oneHourTerm",key = "#user.id")//缓存名user，既能保证方法被调用，结果每次都会被缓存，即覆盖
     public void updateUser(User user) {
         userRepository.save(user);
     }
 
-    @CacheEvict(value = "user",key = "#id")//清除user缓存中和user.id匹配的记录，先删除执行方法，后清空缓存
+    @CacheEvict(value = "oneHourTerm",key = "#id")//清除user缓存中和user.id匹配的记录，先删除执行方法，后清空缓存
     public void deleteUser(Long id){
         userRepository.delete(id);
     }
 
-    @CacheEvict(value = "user",allEntries = true)//清空user
+    @CacheEvict(value = "oneHourTerm",allEntries = true)//清空user
     public void reloadCache(){
 
     }
