@@ -17,7 +17,7 @@ public class UserServiceImpl implements IUserService {
     private UserRepository userRepository;
 
     @Override
-    @Cacheable(value = "user",key = "#id")//缓存名user,当重复使用相同参数调用方法的时候，方法本身不会被调用执行(即缓存命中)；未命中则执行方法，查询DB
+    @Cacheable(value = "tenSecondTerm")//缓存名user,当重复使用相同参数调用方法的时候，方法本身不会被调用执行(即缓存命中)；未命中则执行方法，查询DB
     public User findUserById(Long id) {
         return userRepository.findUserById(id);
     }
@@ -42,6 +42,7 @@ public class UserServiceImpl implements IUserService {
     public void deleteUser(Long id){
         userRepository.delete(id);
     }
+
     @CacheEvict(value = "user",allEntries = true)//清空user
     public void reloadCache(){
 

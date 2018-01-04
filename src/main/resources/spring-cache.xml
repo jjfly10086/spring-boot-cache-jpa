@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myCacheManager" class="com.jwh.demo.cache.MyCacheManager">
+       <property name="caches">
+           <set>
+               <!--配置缓存Set集合，缓存名，对应过期时间-->
+               <bean class="com.jwh.demo.cache.MyCache">
+                   <constructor-arg name="name" value="tenSecondTerm"/>
+                   <constructor-arg name="expireSeconds" value="10"/>
+               </bean>
+               <bean class="com.jwh.demo.cache.MyCache">
+                   <constructor-arg name="name" value="oneMinuteTerm"/>
+                   <constructor-arg name="expireSeconds" value="60"/>
+               </bean>
+               <bean class="com.jwh.demo.cache.MyCache">
+                   <constructor-arg name="name" value="tenMinuteTerm"/>
+                   <constructor-arg name="expireSeconds" value="600"/>
+               </bean>
+               <bean class="com.jwh.demo.cache.MyCache">
+                   <constructor-arg name="name" value="oneHourTerm"/>
+                   <constructor-arg name="expireSeconds" value="3600"/>
+               </bean>
+           </set>
+       </property>
+    </bean>
+</beans>
