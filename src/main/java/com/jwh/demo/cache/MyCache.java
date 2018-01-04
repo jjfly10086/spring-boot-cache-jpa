@@ -55,12 +55,16 @@ public class MyCache implements Cache {
      */
     @Override
     public ValueWrapper get(Object key) {
-        //判断当前key是否过期
-        if(this.expireTimeMap.get(key) == null || this.expireTimeMap.get(key) < System.currentTimeMillis()){
-            evict(key);
-            return null;
-        }
         ValueWrapper valueWrapper = null;
+        //判断当前key是否过期
+        if(this.expireTimeMap.get(key) == null){
+            return valueWrapper;
+        }
+        if(this.expireTimeMap.get(key) < System.currentTimeMillis()){
+            evict(key);
+            return valueWrapper;
+        }
+
         Object value = this.store.get(key);
         if(value != null){
             valueWrapper = new SimpleValueWrapper(value);
