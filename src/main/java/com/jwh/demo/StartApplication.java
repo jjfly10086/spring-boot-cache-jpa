@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @EnableCaching
-@ImportResource(locations = "classpath:*applicationContext.xml")
+@ImportResource(locations = "classpath:spring/applicationContext.xml")
 public class StartApplication {
 
     public static void main(String[] args){
